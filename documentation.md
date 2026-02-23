@@ -170,7 +170,7 @@ production:
     # port: 5432
     socket: /run/postgresql/.s.PGSQL.5432
 ```
-add this section update main:
+add this section after main:
 
 ```
  ci:
