@@ -154,7 +154,7 @@ psql -d gitlabhq_production -U your_username_here -W
 ```
 Open the new `/etc/webapps/gitlab/database.yml` and set the values for `username:` and `password:`. For example:
 ```
-sudo nvim /etc/webapps/gitlab/database.yaml
+sudo nvim /etc/webapps/gitlab/database.yml
 ```
 ```
 # PRODUCTION
