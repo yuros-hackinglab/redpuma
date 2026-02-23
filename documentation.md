@@ -135,6 +135,9 @@ sudo systemctl enable postgresql
 sudo systemctl start postgresql
 ```
 ```
+sudo su - postgres
+```
+```
 psql -d template1
 ```
 > Remember to change your_username_here and your_password_here to the real values :
