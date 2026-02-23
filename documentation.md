@@ -1,10 +1,42 @@
-# preparation
-## instalation package
+# 1. Partitioning
+
+## 1.1 physical volume disk layout
+
+| disk | partition | type              | luks  | lvm   | label    | size      | format | mount                      |
+| ---- | --------- | ----------------- | ----- | ----- | -------- | --------- | ------ | -------------------------- |
+| 0    | 1         | efi               | false | false | boot     | 320M      | fat 32 | /boot                      |
+| 0    | 2         | linux server data | true  | false | keys     | 256M      | luks   | none                       |
+| 0    | 3         | linux file system | true  | true  | proc     | 22G       | luks   |  |
+| 0    | 4         | linux server data | true  | true  | data     | 100% Free | luks   |  |
+
+## 1.2 logical volume
+
+### 1.2.1 disk layout proc
+| partition | list | group  | name | size | mount                 | format |
+| --------- | ---- | ------ | ---- | ---- | --------------------- | ------ |
+| 3         | 1    | proc   | root | 15G  | /mnt                  | ext4   |
+| 3         | 2    | proc   | vars | 3G   | /mnt/var              | ext4   |
+| 3         | 3    | proc   | vlog | 512M | /mnt/var/log/         | ext4   |
+| 3         | 4    | proc   | vaud | 256M | /mnt/var/log/audit    | ext4   |
+| 3         | 5    | proc   | vtmp | 256M | /mnt/var/tmp/         | ext4   |
+| 3         | 6    | proc   | vpac | 1.5G | /mnt/var/cache/pacman | ext4   |
+| 3         | 7    | proc   | temp | 1.5G | /mnt/tmp              | ext4   |
+
+### 1.2.2 disk layout data
+| partition | list | group  | name | size     | mount                  | format |
+| --------- | ---- | ------ | ---- | -------- | ---------------------  | ------ |
+| 4         | 1    | data   | post | 100G     | /mnt/var/lib/postgres  | ext4   |
+| 4         | 2    | data   | home | 100%free | /mnt/home              | ext4   |
+
+
+# 2. preparation
+
+## 2.1 instalation package
 ```
 sudo pacman -S valkey postgresql gitlab nginx
 ```
-# configuration
-## generate random strings secrets
+# 3 configuration
+## 3.1 generate random strings secrets
 ```
 sudo hexdump -v -n 64 -e '1/1 "%02x"' /dev/urandom > /etc/webapps/gitlab/secret
 ```
@@ -19,7 +51,7 @@ sudo chmod 640 /etc/webapps/gitlab-shell/secret
 ```
 > After generate make sure that the files /etc/webapps/gitlab/secret and /etc/webapps/gitlab-shell/secret files contain strings secret. `cat /etc/webapps/gitlab/secret and /etc/webapps/gitlab-shell/secret`
 
-## valkey cache database
+## 3.2 valkey cache database
 
 ```
 sudo usermod -aG valkey gitlab
@@ -77,7 +109,7 @@ unixsocket /run/valkey/valkey.conf
 unixsocketperm 777
 ```
 
-## postgresql database
+## 3.3 postgresql database
 
 Login to PostgreSQL and create the `gitlabhq_production` database along with its user.
 
@@ -117,7 +149,7 @@ production:
 ```
 > We only need to set up the production database to get GitLab working.
 
-## Initialize Gitlab database
+## 3.4 Initialize Gitlab database
 
 ```
 sudo systemctl enable valkey
@@ -139,7 +171,7 @@ sudo cd /usr/share/webapps/gitlab
 ```
 sudo -u gitlab $(cat environment | xargs) bundle exec rake gitlab:setup DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 ```
-## Nginx web server
+## 3.5 Nginx web server
 
 ```
 sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled
@@ -221,8 +253,8 @@ http {
 ```
 sudo systemctl restart nginx
 ```
-# Testing
-## start gitlab
+# 4. Testing
+## 4.1 start gitlab
 
 ```
 sudo systemctl enable gitlab.target
@@ -230,7 +262,7 @@ sudo systemctl enable gitlab.target
 ```
 sudo systemctl start gitlab.target
 ```
-## search browser
+## 4.2. search browser
 
 ```
 http://localhost:port
