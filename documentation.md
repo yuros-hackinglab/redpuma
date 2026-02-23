@@ -54,6 +54,12 @@ sudo chmod 640 /etc/webapps/gitlab-shell/secret
 ## 3.2 valkey cache database
 
 ```
+sudo systemctl enable valkey
+```
+```
+sudo systemctl start valkey
+```
+```
 sudo usermod -aG valkey gitlab
 ```
 ```
@@ -117,6 +123,18 @@ Login to PostgreSQL and create the `gitlabhq_production` database along with its
 sudo su - postgres
 ```
 ```
+initdb -D /var/lib/postgres/data
+```
+```
+exit
+```
+```
+sudo systemctl enable postgresql
+```
+```
+sudo systemctl start postgresql
+```
+```
 psql -d template1
 ```
 > Remember to change your_username_here and your_password_here to the real values :
@@ -150,13 +168,6 @@ production:
 > We only need to set up the production database to get GitLab working.
 
 ## 3.4 Initialize Gitlab database
-
-```
-sudo systemctl enable valkey
-```
-```
-sudo systemctl start valkey
-```
 ```
 sudo systemctl enable gitlab-gitaly.service
 ```
