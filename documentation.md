@@ -201,7 +201,7 @@ sudo systemctl start gitlab-gitaly.service
 Initialize the database and activate advanced features:
 
 ```
-sudo cd /usr/share/webapps/gitlab
+cd /usr/share/webapps/gitlab
 ```
 ```
 sudo -u gitlab $(cat environment | xargs) bundle exec rake gitlab:setup DISABLE_DATABASE_ENVIRONMENT_CHECK=1
