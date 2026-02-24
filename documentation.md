@@ -113,6 +113,9 @@ uncommenting and edit
 unixsocket /run/valkey/valkey.conf
 unixsocketperm 777
 ```
+```
+sudo systemctl restart valkey
+```
 
 ## 3.3 postgresql database
 
