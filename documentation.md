@@ -111,7 +111,7 @@ uncommenting and edit
 ...
 
 unixsocket /run/valkey/valkey.conf
-unixsocketperm 777
+unixsocketperm 770
 ```
 ```
 sudo systemctl restart valkey
