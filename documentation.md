@@ -52,13 +52,6 @@ sudo chmod 640 /etc/webapps/gitlab-shell/secret
 > After generate make sure that the files /etc/webapps/gitlab/secret and /etc/webapps/gitlab-shell/secret files contain strings secret. `cat /etc/webapps/gitlab/secret and /etc/webapps/gitlab-shell/secret`
 
 ## 3.2 valkey cache database
-
-```
-sudo systemctl enable valkey
-```
-```
-sudo systemctl start valkey
-```
 ```
 sudo usermod -aG valkey gitlab
 ```
@@ -93,6 +86,12 @@ test:
   url: unix:/run/valkey/valkey.sock
 production:
   url: unix:/run/valkey/valkey.sock
+```
+```
+sudo systemctl enable valkey
+```
+```
+sudo systemctl start valkey
 ```
 ```
 touch /run/valkey/valkey.sock
