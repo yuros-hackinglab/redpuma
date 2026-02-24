@@ -152,7 +152,10 @@ Try connecting to the new database with the new user to verify it works:
 ```
 psql -d gitlabhq_production -U your_username_here -W
 ```
-Open the new `/etc/webapps/gitlab/database.yml` and set the values for `username:` and `password:`. For example:
+```
+exit
+```
+Open the new `/etc/webapps/gitlab/database.yml` and set the values for `username:` and `password:` when create in postgresql. For example:
 ```
 sudo nvim /etc/webapps/gitlab/database.yml
 ```
