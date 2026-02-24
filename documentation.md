@@ -6,7 +6,7 @@
 | ---- | --------- | ----------------- | ----- | ----- | -------- | --------- | ------ | -------------------------- |
 | 0    | 1         | efi               | false | false | boot     | 320M      | fat 32 | /boot                      |
 | 0    | 2         | linux server data | true  | false | keys     | 256M      | luks   | none                       |
-| 0    | 3         | linux file system | true  | true  | proc     | 23G       | luks   |  |
+| 0    | 3         | linux file system | true  | true  | proc     | 24G       | luks   |  |
 | 0    | 4         | linux server data | true  | true  | data     | 100% Free | luks   |  |
 
 ## 1.2 logical volume
@@ -19,8 +19,8 @@
 | 3         | 3    | proc   | vlog | 512M | /mnt/var/log/         | ext4   |
 | 3         | 4    | proc   | vaud | 256M | /mnt/var/log/audit    | ext4   |
 | 3         | 5    | proc   | vtmp | 256M | /mnt/var/tmp/         | ext4   |
-| 3         | 6    | proc   | vpac | 2.5G | /mnt/var/cache/pacman | ext4   |
-| 3         | 7    | proc   | temp | 1.5G | /mnt/tmp              | ext4   |
+| 3         | 6    | proc   | vpac | 3G   | /mnt/var/cache/pacman | ext4   |
+| 3         | 7    | proc   | temp | 2G   | /mnt/tmp              | ext4   |
 
 ### 1.2.2 disk layout data
 | partition | list | group  | name | size     | mount                  | format |
