@@ -131,10 +131,10 @@ initdb -D /var/lib/postgres/data
 exit
 ```
 ```
-sudo systemctl enable postgresql
+sudo systemctl enable postgresql.service
 ```
 ```
-sudo systemctl start postgresql
+sudo systemctl start postgresql.service
 ```
 ```
 sudo su - postgres
