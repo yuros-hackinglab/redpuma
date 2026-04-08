@@ -152,7 +152,7 @@ production:
   main:
     adapter: postgresql
     encoding: unicode
-    database: gitlabhq_production
+    database: database_name
     username: your_username_here
     password: "your_password_here"
     # host: localhost
@@ -165,7 +165,7 @@ add this section after main:
  ci:
     adapter: postgresql
     encoding: unicode
-    database: gitlabhq_production
+    database: database_name
     database_tasks: false
     username: your_username_here
     password: "your_password_here"
@@ -200,7 +200,20 @@ sudo systemctl enable --now gitlab-gitaly.service
 sudo systemctl start gitlab-gitaly.service
 ```
 Initialize the database and activate advanced features:
-
+```
+nvim /etc/webapps/gitlab/gitlab.yml
+```
+> change `gitaly_address` value
+```
+unix:/run/gitlab/gitlab-gitaly.socket
+```
+> change `path` value
+```
+/var/lib/gitlab/repositories
+```
+```
+systemctl restart gitlab-gitaly.service
+```
 ```
 cd /usr/share/webapps/gitlab
 ```
