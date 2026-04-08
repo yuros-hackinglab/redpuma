@@ -33,7 +33,7 @@
 
 ## 2.1 instalation package
 ```
-sudo pacman -S valkey postgresql gitlab nginx
+sudo pacman -S valkey postgresql gitlab nginx go
 ```
 # 3 configuration
 ## 3.1 generate random strings secrets
