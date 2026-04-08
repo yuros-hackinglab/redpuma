@@ -98,12 +98,6 @@ production:
   url: unix:/run/valkey/valkey.sock
 ```
 ```
-touch /run/valkey/valkey.sock
-```
-```
-sudo chown -R valkey:valkey /run/valkey/valkey.sock
-```
-```
 sudo systemctl restart valkey
 ```
 
