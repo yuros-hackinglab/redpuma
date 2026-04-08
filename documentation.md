@@ -213,7 +213,7 @@ sudo -u gitlab $(cat environment | xargs) bundle exec rake gitlab:setup DISABLE_
 sudo mkdir /etc/nginx/sites-available /etc/nginx/sites-enabled
 ```
 ```
-nvim /etc/nginx/sites-available/gitlab
+nvim /etc/nginx/sites-available/gitlab.conf
 ```
 Fill in the file. For the example : 
 
@@ -293,7 +293,7 @@ http {
 
 ```
 ```
-sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
+sudo ln -s /etc/nginx/sites-available/gitlab.conf /etc/nginx/sites-enabled/gitlab.conf
 ```
 ```
 sudo systemctl restart nginx
