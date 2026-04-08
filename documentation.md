@@ -283,6 +283,15 @@ http {
     include sites-enabled/*;
 }
 ```
+> add
+```
+http {
+    types_hash_max_size 4096;
+    server_names_hash_bucket_size 128;
+    ...
+}
+
+```
 ```
 sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 ```
