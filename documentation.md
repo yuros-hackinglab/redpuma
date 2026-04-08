@@ -272,9 +272,6 @@ server {
   }
 }
 ```
-```
-sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
-```
 Append include `sites-enabled/*;` to the end of the `http block`:
 
 ```
@@ -285,6 +282,9 @@ http {
     ...
     include sites-enabled/*;
 }
+```
+```
+sudo ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab
 ```
 ```
 sudo systemctl restart nginx
