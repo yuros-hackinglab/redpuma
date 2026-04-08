@@ -38,6 +38,16 @@ sudo pacman -S valkey postgresql gitlab nginx
 # 3 configuration
 ## 3.1 generate random strings secrets
 ```
+sudo systemctl enable valkey
+```
+```
+sudo systemctl start valkey
+```
+```
+nvim /etc/valkey/valkey.conf
+```
+> add `unixsocket /run/valkey/valkey.sock` and `unixsocketperm 770`
+```
 sudo hexdump -v -n 64 -e '1/1 "%02x"' /dev/urandom > /etc/webapps/gitlab/secret
 ```
 ```
@@ -53,7 +63,7 @@ sudo chmod 640 /etc/webapps/gitlab-shell/secret
 
 ## 3.2 valkey cache database
 ```
-sudo usermod -aG valkey gitlab
+sudo usermod -aG gitlab valkey
 ```
 ```
 sudo nvim /etc/webapps/gitlab/cable.yml
@@ -88,30 +98,10 @@ production:
   url: unix:/run/valkey/valkey.sock
 ```
 ```
-sudo systemctl enable valkey
-```
-```
-sudo systemctl start valkey
-```
-```
 touch /run/valkey/valkey.sock
 ```
 ```
 sudo chown -R valkey:valkey /run/valkey/valkey.sock
-```
-
-Add `unixsocket /run/valkey/valkey.sock` and `unixsocketperm 777` in `/etc/valkey/valkey.conf`
-
-```
-sudo nvim /etc/valkey/valkey.conf
-```
-
-uncommenting and edit
-```
-...
-
-unixsocket /run/valkey/valkey.conf
-unixsocketperm 770
 ```
 ```
 sudo systemctl restart valkey
@@ -122,7 +112,7 @@ sudo systemctl restart valkey
 Login to PostgreSQL and create the `gitlabhq_production` database along with its user.
 
 ```
-sudo su - postgres
+sudo su postgres
 ```
 ```
 initdb -D /var/lib/postgres/data
@@ -137,7 +127,7 @@ sudo systemctl enable postgresql.service
 sudo systemctl start postgresql.service
 ```
 ```
-sudo su - postgres
+sudo su postgres
 ```
 ```
 psql -d template1
@@ -193,7 +183,24 @@ add this section after main:
 
 ## 3.4 Initialize Gitlab database
 ```
-sudo systemctl enable gitlab-gitaly.service
+export EDITOR=nvim
+```
+```
+sudo systemctl edit gitlab-gitaly
+```
+> add
+```
+[Service]
+ReadWritePaths=/var/lib/gitlab/repositories
+```
+```
+sudo chown -R gitlab:gitlab /var/lib/gitlab/repositories
+```
+```
+sudo chmod -R 2770 /var/lib/gitlab/repositories
+```
+```
+sudo systemctl enable --now gitlab-gitaly.service
 ```
 ```
 sudo systemctl start gitlab-gitaly.service
