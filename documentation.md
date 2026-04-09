@@ -315,6 +315,18 @@ sudo systemctl restart nginx
 ## 4.1 start gitlab
 
 ```
+sudo systemctl restart gitlab-puma.service
+```
+```
+sudo systemctl restart gitlab-gitaly.service
+```
+```
+sudo systemctl restart gitlab-sidekiq.service
+```
+```
+sudo systemctl restart gitlab-workhorse.service
+```
+```
 sudo systemctl enable gitlab.target
 ```
 ```
