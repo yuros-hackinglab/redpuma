@@ -176,17 +176,7 @@ add this section after main:
 > We only need to set up the production database to get GitLab working.
 
 ## 3.4 Initialize Gitlab database
-```
-export EDITOR=nvim
-```
-```
-sudo systemctl edit gitlab-gitaly
-```
-> add
-```
-[Service]
-ReadWritePaths=/var/lib/gitlab/repositories
-```
+
 ```
 sudo chown -R gitlab:gitlab /var/lib/gitlab/repositories
 ```
